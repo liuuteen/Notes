@@ -645,15 +645,123 @@ function Person(){
 const p1 = new Person();
 ```
 
-## 实现继承
+## 7.1 实现继承
 
 实现一个完整原型链最佳技术方案是 一个对象的原型是另一个对象的实例
 
 `SubClass.prototype = new SuperClass()`
 
+这样设置会导致丢失 `constructor` 属性
+
+```js
+// 添加回 constructor 属性
+Object.defineProperty(SubClass.protptype, "constructor", {
+    enumerable: false,
+    value: Ninja,
+    writable: true,
+})
+```
+
+## 7.2 对象属性描述（property descriptor）
+
+对象是通过属性描述来表示该对象的一些性质的。
+
+```js
+Object.defineProperty(object1, 'property1', {
+  value: 42,
+  writable: false
+});
+```
+
+### [参数](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty#参数)
+
+- `obj`
+
+  要定义属性的对象。
+
+- `prop`
+
+  要定义或修改的属性的名称或 [`Symbol`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Symbol) 。
+
+- `descriptor`
+
+  要定义或修改的属性描述符。
+
+描述符关键字：
+
+- configuarble —— true：可以删除属性，可以重新修改属性描述；false：不允许修改。
+- enumerable —— 是否会在 for-in 循环对象属性时出现
+- value 
+- writable —— 是否可以通过**赋值语句**修改属性值
+- get —— 定义 getter 函数，访问属性时隐式调用，不能与 value 与 writable 同时使用
+- set —— 定义 setter 函数，当对属性赋值时发生调用，也不能与 value 与 writable 同时使用
+
+## 7.3 instanceof 操作符
+
+检查操作符右边的函数的原型是否存在于操作符左边的对象的原型链上。
 
 
 
+## 7.4 class 实现继承的原理
+
+class 关键字底层的实现仍然时基于原型继承
+
+```js
+class Ninja {
+    // 构造函数
+    constructor(name){
+        this.name = name;
+    }
+    
+    // 定义原型的方法
+    swingSword() {
+        return true;
+    }
+    
+    // 定义静态方法
+    static compare(ninja1, ninja2) {
+        return ninja1.level - ninja2.level;
+    }
+}
+var ninja = new Ninja("Alen");
+```
+
+```js
+// 底层仍然是基于原型的继承
+
+function Ninja(name){
+    this.name = name;
+}
+Ninja.prototype.swingSword = function(){
+    return true;
+};
+// 静态方法
+Ninja.compare = function(ninja1, ninja2) {...}
+```
+
+**class 实现继承**
+
+```js
+class Person{
+    constructor(name){
+        this.name = name;
+    }
+    dance(){
+        return true;
+    }
+}
+
+class Ninja extends Person{
+    constructor(name, weapon){
+        super(name); // super 调用基类 的构造函数
+        this.weapon = weapon;
+    }
+    
+    wieldWeapon(){
+        return true;
+    }
+}
+```
 
 # 8. 控制对象的访问
 
