@@ -394,13 +394,13 @@ new Person();
 
 两个方法传递参数：
 
-apply：作为函数上下文的对象和一个作为函数调用参数的值的数组
+apply：作为函数上下文的对象和一个作为函数调用参数的值的**数组**
 
 call：作为函数上下文的对象和一个参数列表
 
 ```js
 juggle.apply(ninja1, [1, 2, 3, 4])
-juggle.apply(ninja2, 5, 6, 7, 8)
+juggle.call(ninja2, 5, 6, 7, 8)
 ```
 
 ## 4.3 解决函数上下文的问题
@@ -1141,7 +1141,7 @@ ninjaIslandMap.clear() // 清空map
 ```js
 const directory = new Map();
 
-directory.set("Yoshi", "18")
+directory.set("Yoshi", "18")	
 directory.set("Kuma", "20")
 
 for(let item of directory){
@@ -1209,4 +1209,6 @@ const pureNinjas = new Set([...ninjas].filter(ninja => !samurai.has(ninja)))
 ```
 
 # 11. 模块化
+
+
 
