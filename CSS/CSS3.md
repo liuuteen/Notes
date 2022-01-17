@@ -65,3 +65,38 @@ div:nth-of-type(1)
 
 ## 3. 伪元素
 
+为元素选择器是通过 CSS 创建新标签元素，而不使用 `HTML` 标签，从而简化 `HTML` 结构。
+
+| 选择符     | 简介                     |
+| ---------- | ------------------------ |
+| `::before` | 在元素内部的前面插入内容 |
+| `::after`  | 在元素内部的后面插入内容 |
+
+- 创建的元素属于行内元素
+- 文档树中不存在，所以叫 **伪元素**
+- 必须要有 `content` 属性
+- 权重为 1
+
+### 伪元素字体图标
+
+![image-20220117222426402](C:\Users\lenovo\AppData\Roaming\Typora\typora-user-images\image-20220117222426402.png)
+
+### 实现遮罩层
+
+```css
+.shiping::before {
+    content: '';
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .4) url(img/xx.png) no-repeat center;
+}
+
+.shiping:hover::before {
+    display: block;
+}
+```
+
