@@ -233,6 +233,20 @@ CSS 精灵技术（CSS Sprites）
 
 结构和样式复杂一点的小图片，用精灵图
 
+# CSS 三角形实现
+
+```css
+div {
+    width: 0;
+    height: 0;
+    /* 兼容性 */
+    line-height: 0;
+    font-size: 0;
+    border: 50px solid transparent;
+    border-left-color: blue;
+}
+```
+
 # 用户界面样式
 
 界面样式是指：用户的一些操作样式
@@ -292,8 +306,50 @@ white-space: nowrap; (默认 normal 自动换行)
 /* 2. 超出的部分隐藏 */
 overflow: hidden;
 /* 3. 文字用省略号替代超出的部分 */
-text-over-flow: ellipsis;
+text-overflow: ellipsis;
 ```
 
 ## 2. 多行文本溢出
+
+具有兼容性问题，适合于 `webKit` 浏览器或移动端（大部分使用 `webKit` 内核）
+
+```css
+overflow: hidden;
+text-overflow: ellipsis;
+/* 弹性伸缩盒子模型显示 */
+display: -webkit-box;
+/* 限制再一个块元素显示的文本的行数 */
+-webkit-line-clamp: 2;
+/* 设置或检索伸缩盒对象的子元素的排列方式 */
+-webkit-box-orient: vertical;
+```
+
+# 布局技巧
+
+## 1. margin 负值的运用
+
+![image-20220112110731441](CSS.assets/image-20220112110731441.png)
+
+1. 让每个盒子 `margin` 往左侧移动 `-1px` 正好压住相邻盒子边框
+2. 鼠标经过某个盒子，提高盒子的层级（如果没有定位，则加相对定位`保留位置`，如果都有定位，则加 `z-index`）
+
+## 2. 文字围绕浮动元素
+
+![image-20220112134519221](CSS.assets/image-20220112134519221.png)
+
+像这种不用使用左浮动右浮动的方式，只需要将包裹图片的盒子左浮动即可。文字会自动环绕在浮动元素旁边。
+
+## 3. 行内块元素
+
+![image-20220112145855008](CSS.assets/image-20220112145855008.png)
+
+分页器效果，可以使用行内块元素 `display: inline-block` ，并且父元素添加 `text-align: center` 就可以快速生成了。
+
+`text-align` 属性可以让行内元素和行内块元素居中对齐。
+
+# CSS 初始化
+
+重设浏览器的样式 
+
+[CSS reset]: https://meyerweb.com/eric/tools/css/reset/
 
