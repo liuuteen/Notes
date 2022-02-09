@@ -1,4 +1,4 @@
-新增 CSS3 特性兼容性，`IE9+` 支持。
+新增 `CSS3` 特性兼容性，`IE9+` 支持。
 移动端的支持程度更好
 
 # 1. 新增选择器
@@ -21,7 +21,7 @@ E[attr*=val] // attr 属性的值含有 val 的 E 元素
 
 伪类选择器一开始是 **状态伪类选择器**，例如 `:hover` 鼠标悬停。
 
-CSS3 新增了结构伪类选择器，是根据 **文档结构** 选择元素，常用于根据父级选择里面的子元素。
+`CSS3` 新增了结构伪类选择器，是根据 **文档结构** 选择元素，常用于根据父级选择里面的子元素。
 
 ```css
 :first-child
@@ -65,7 +65,7 @@ div:nth-of-type(1)
 
 ## 3. 伪元素
 
-为元素选择器是通过 CSS 创建新标签元素，而不使用 `HTML` 标签，从而简化 `HTML` 结构。
+为元素选择器是通过 `CSS` 创建新标签元素，而不使用 `HTML` 标签，从而简化 `HTML` 结构。
 
 | 选择符     | 简介                     |
 | ---------- | ------------------------ |
@@ -99,4 +99,66 @@ div:nth-of-type(1)
     display: block;
 }
 ```
+
+### 伪元素清除浮动
+
+原理：使用了额外标签法（在浮动元素后面加一个空的块级元素）
+
+**单伪元素**
+
+```css
+.clearfix:after {
+	content: "020";
+	display: block;
+	height: 0;
+	clear: both;  // 核心代码
+	visibility: hidden;
+}
+```
+
+**双伪元素**
+
+```css
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table; // 让块级元素一行显示
+}
+.clearfix:after {
+    clear: both;
+}
+```
+
+# 2. `CSS3` 盒子模型
+
+`box-sizing: content-box | border-box` 
+
+计算盒子大小方式：
+
+- content-box：默认，盒子大小 **width + padding + border**
+
+- border-box：盒子大小就为 **width**  :star:
+
+# 3. 其他特性
+
+## 1. `calc `函数
+
+可以计算 `css` 属性值。例如：
+
+```css
+width: (100% - 30px);
+```
+
+支持 `+，-，*，/`
+
+# 4. `CSS3` 过渡 transition
+
+```css
+transition: 要过渡的属性 花费时间 运动曲线 何时开始;
+```
+
+1. **属性：**变化的 `css` 属性，所有的则为 `all`
+2. **花费时间：** 秒（必填） 如 `.5s`
+3. **运动曲线：** 默认 `ease`(可省略)
+4. **何时开始：** 单位秒必写，触发的延迟时间，默认 `0s`（可省略）
 
