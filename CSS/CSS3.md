@@ -139,7 +139,7 @@ div:nth-of-type(1)
 
 - border-box：盒子大小就为 **width**  :star:
 
-# 3. 其他特性
+# 3. 其他特性 （了解）
 
 ## 1. `calc `函数
 
@@ -151,7 +151,17 @@ width: calc(100% - 30px);
 
 支持 `+，-，*，/`
 
-# 4. `CSS3` 过渡 transition
+## 2. 滤镜 filter
+
+`filter` 属性将**模糊**或**颜色偏移**等图形效果应用于元素。
+
+```css
+filter: 函数();  //  filter: blur(5px);
+```
+
+
+
+# 4. `CSS3` 过渡 `transition` :star2:
 
 ```css
 transition: 要过渡的属性 花费时间 运动曲线 何时开始;
@@ -161,4 +171,15 @@ transition: 要过渡的属性 花费时间 运动曲线 何时开始;
 2. **花费时间：** 秒（必填） 如 `.5s`
 3. **运动曲线：** 默认 `ease`(可省略)
 4. **何时开始：** 单位秒必写，触发的延迟时间，默认 `0s`（可省略）
+
+哪个元素需要过渡，就给这个元素加`transition` 属性
+
+对多个属性过渡，只需要用逗号分隔
+
+```css
+transition: width .5s ease 1s,
+		   height .5s ease 1s;
+// 对所有属性添加
+transition: all .5s;
+```
 
