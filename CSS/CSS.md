@@ -347,7 +347,7 @@ display: -webkit-box;
 
 `text-align` 属性可以让行内元素和行内块元素居中对齐。
 
-# CSS 初始化
+# `CSS` 初始化
 
 重设浏览器的样式 
 
