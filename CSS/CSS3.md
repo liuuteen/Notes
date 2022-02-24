@@ -183,3 +183,110 @@ transition: width .5s ease 1s,
 transition: all .5s;
 ```
 
+# 5. `CSS3` `2D` 转换
+
+转换 `transform` 可以实现元素的位移、旋转、缩放等效果
+
+- 移动：translate
+- 旋转：rotate
+- 缩放：scale
+
+## 移动 `translate`
+
+```css
+transform: translate(x, y);
+transform: translateX(n);
+transform: translateY(n);
+```
+
+### 优点
+
+- **不影响其他元素的位置**
+
+- 百分比相对于元素自身的宽高。
+- 对行内元素无效
+
+## 旋转 `rotate`
+
+```css
+transform: rotate(度数)
+```
+
+- 单位 `deg` ，degree 度数
+- 中心点为元素中心点（默认 `transform-origin: 50% 50%`）
+
+### 可以通过 `rotate` 实现三角效果
+
+```css
+div::after {
+    content: '';
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 5px;
+    height: 5px;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    transform: rotate(45deg);
+}
+```
+
+`transform-origin: x y;` 可以修改中心点
+
+x，y可以为像素或者方位名词 `trblc` (top right bottom left center)
+
+## 缩放 `scale`
+
+```css
+transform: scale(x, y);
+transform: scale(1, 1); // 结果是 1*width, 1*height
+transform: scale(2); // x y 都为2
+```
+
+缩放不影响其他元素
+
+`transform-origin: x y;` 可以修改中心点
+
+## 综合写法
+
+```css
+transform: translate() rotate() scale();
+```
+
+**顺序会影响转换的效果**（旋转会改变坐标轴的方向）
+
+综合写法时最好的办法是位移放最前面
+
+# 6. `CSS3` 动画 `animation` 
+
+ 可以通过 `@keyframes` 设置多个节点实现动画
+
+对比过渡，动画能实现更多的变化，更多控制，还可以连续自动播放等。
+
+制作动画：
+
+1. 定义动画
+2. 使用动画
+
+## `@keyframes` 定义动画
+
+```css
+@keyframes 动画名称 {
+    0% {
+        width: 100px;
+    }
+    100% {
+        width: 200px;
+    }
+}
+div {
+    animation-name: 动画名称;
+    animation-duration: 持续时间;
+}
+```
+
+动画序列可以用百分比规定节点，也可以用 `from 和 to，等同 0% 和 100%`
+
+
+
+# 7. `CSS3` `3D` 转换
