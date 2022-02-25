@@ -287,6 +287,67 @@ div {
 
 动画序列可以用百分比规定节点，也可以用 `from 和 to，等同 0% 和 100%`
 
+## 简化写法
+
+```css
+div {
+    /* 可以同时添加多个动画 */
+    animation: ani1 1s ease infinity,
+        	   ani2 2s ease infinity;  
+}
+```
+
 
 
 # 7. `CSS3` `3D` 转换
+
+使用 `transform` 属性
+
+## 透视 `perspective`
+
+透视用来产生 `3d` 效果，模拟眼睛的位置，也叫做视距。
+
+**透视写在被观察元素的父盒子上**
+
+```css
+div {
+    perspective: 500px;
+}
+```
+
+`d`：视距
+
+`z`：z轴
+
+主要内容：
+
+- `3D` 位移：`translate3d(x, y, z);` :star:
+- `3D` 旋转：`rotate3d(x, y, z);` :star:
+- 透视：`perspective`
+- `3D` 呈现：`transform-style`
+
+## `3d` 移动
+
+```css
+transform: translateZ();
+transform: translate3d(x, y, z);
+```
+
+## `3d` 旋转
+
+```css
+transform: rotateX(deg);
+transform: rotateY(deg);
+transform: rotateZ(deg);  /* 和 rotate()效果一样 */
+transform: rotate3d(x, y, z, deg); /* x, y, z 取 0-1， 矢量角度 */
+```
+
+## `3d` 呈现
+
+- 控制子元素是否开启三位立体环境。
+- `transform-style: flat;` 不开启，默认
+- `transform-style: preserve-3d;` 开启
+- 属性要给父级
+
+
+
