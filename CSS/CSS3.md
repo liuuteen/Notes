@@ -303,6 +303,13 @@ div {
 
 使用 `transform` 属性
 
+主要内容：
+
+- `3D` 位移：`translate3d(x, y, z);` :star:
+- `3D` 旋转：`rotate3d(x, y, z);` :star:
+- 透视：`perspective`
+- `3D` 呈现：`transform-style`
+
 ## 透视 `perspective`
 
 透视用来产生 `3d` 效果，模拟眼睛的位置，也叫做视距。
@@ -311,20 +318,21 @@ div {
 
 ```css
 div {
-    perspective: 500px;
+    perspective: 500px; /* 不推荐使用 */
+}
+```
+
+现在应该是用的
+
+```css
+div {
+    transform: perspective(200px);
 }
 ```
 
 `d`：视距
 
 `z`：z轴
-
-主要内容：
-
-- `3D` 位移：`translate3d(x, y, z);` :star:
-- `3D` 旋转：`rotate3d(x, y, z);` :star:
-- 透视：`perspective`
-- `3D` 呈现：`transform-style`
 
 ## `3d` 移动
 
@@ -349,5 +357,7 @@ transform: rotate3d(x, y, z, deg); /* x, y, z 取 0-1， 矢量角度 */
 - `transform-style: preserve-3d;` 开启
 - 属性要给父级
 
+## `backface-visibility`
 
+控制元素的背面是否显示。` visible | hidden` 
 
