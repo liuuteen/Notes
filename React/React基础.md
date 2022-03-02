@@ -128,3 +128,4 @@ class Welcome extends React.Component {
 不会尝试更改入参，且多次调用下相同的入参始终返回相同的结果。
 
 **所有 React 组件都必须像纯函数一样保护它们的 props 不被更改。**
+
