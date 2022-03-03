@@ -129,3 +129,5 @@ class Welcome extends React.Component {
 
 **所有 React 组件都必须像纯函数一样保护它们的 props 不被更改。**
 
+# 4. State & 生命周期
+
