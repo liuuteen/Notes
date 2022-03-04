@@ -131,3 +131,31 @@ class Welcome extends React.Component {
 
 # 4. State & 生命周期
 
+state 是私有的，并且完全受控于当前组件
+
+**class 组件才能使用 state**（暂时不考虑 hooks）
+
+组件第一次被渲染到 DOM 中的时候，就为其**设置一个计时器**。这在 React 中被称为“挂载（mount）”。
+
+当 DOM 中组件被删除的时候，应该**清除计时器**。这在 React 中被称为“卸载（unmount）”。
+
+## 生命周期方法
+
+为 class 组件声明一些特殊的方法，当组件挂载或卸载时就会去执行这些方法
+
+```react
+class Clock extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+  }
+
+  componentWillUnmount() {
+  }
+
+  render() {}
+}
+```
+
