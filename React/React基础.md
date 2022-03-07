@@ -91,7 +91,7 @@ React 元素是不可变对象
 
 ## React 只更新它需要更新的部分
 
-React DOM 会将元素和它的子元素与它们之前的状态进行比较，只会进行必要的更新（diff算法）
+React DOM 会将元素和它的子元素与它们之前的状态进行比较，只会进行必要的更新（虚拟DOM 和 diff算法）
 
 # 3. 组件 & Props
 
@@ -158,4 +158,49 @@ class Clock extends React.Component {
   render() {}
 }
 ```
+
+## 使用 State
+
+应该使用 `setState()` 修改 `state` ; 并且初始化 this.state 应该在构造函数内
+
+出于性能考虑，React 可能会把多个 `setState()` 调用合并成一个调用；因为 `this.props` 和 `this.state` 可能会是异步更新的。不能依赖值来更新下一个 `state` 。
+
+```react
+// Wrong
+this.setState({
+  counter: this.state.counter + this.props.increment,
+});
+// 可以传入回调函数来解决问题
+// Correct
+this.setState((state, props) => ({
+  counter: state.counter + props.increment
+}));
+```
+
+### State 的更新会被合并
+
+合并是浅合并
+
+## 数据是向下流动的（单向数据流）
+
+组件无法无法知道其他组件是有状态的还是无状态的
+
+组件可以选择把它的 state 作为 props 向下传递到它的子组件中
+
+从 state 派生的数据或 UI 只能影响后代组件
+
+# 5. 事件处理
+
+1. 与 DOM 事件处理语法不同：
+
+- 事件命名小驼峰 onClick
+- 传入函数
+
+2. 阻止默认行为
+
+   不能通过返回 `false` ，只能显示调用 `preventDefault`
+
+建议在构造器中绑定或使用 class fields 语法绑定事件处理函数的 `this`
+
+
 
