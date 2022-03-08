@@ -202,5 +202,62 @@ this.setState((state, props) => ({
 
 建议在构造器中绑定或使用 class fields 语法绑定事件处理函数的 `this`
 
+# 6. 条件渲染
 
+使用 JavaScript 运算符 `if` 或者`条件运算符`去创建 react 元素
+
+可以使用变量来储存 react 元素
+
+## 内联条件渲染
+
+### 与运算符 &&
+
+通过花括号包裹代码，你可以在 `JSX `中嵌入任何表达式
+
+在 JavaScript 中，`true && expression` 总是会返回 `expression`, 而 `false && expression` 总是会返回 `false`
+
+### 三元运算符
+
+```react
+render() {
+  const isLoggedIn = this.state.isLoggedIn;
+  return (
+    <div>
+      {isLoggedIn
+        ? <LogoutButton onClick={this.handleLogoutClick} />
+        : <LoginButton onClick={this.handleLoginClick} />
+      }
+    </div>
+  );
+}
+```
+
+如果条件变得过于复杂，那你应该考虑如何提取组件
+
+## 阻止组件渲染
+
+可以让 `render` 方法直接返回 `null`; 组件的 `render` 方法中返回 `null` 并不会影响组件的生命周期
+
+# 7. 列表 & Key
+
+## Key 的作用
+
+key 帮助 React 识别哪些元素改变了，比如被添加或删除
+
+一个元素的 key 最好是这个元素在列表中拥有的一个独一无二的字符串
+
+当元素没有确定 id 的时候，万不得已你可以使用元素索引 index 作为 key
+
+如果列表项目的顺序可能会变化，使用索引来用作 key 值会导致性能变差，还可能引起组件状态的问题
+
+## 用 key 提取组件
+
+元素的 key 只有放在就近的数组上下文中
+
+```react
+  const listItems = numbers.map((number) =>
+    // 正确！key 应该在数组的上下文中被指定
+    <ListItem key={number.toString()} value={number} />
+  );
+```
 
