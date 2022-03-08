@@ -159,3 +159,93 @@ grid-template-columns: repeat(2, 10px 20px 30px);  /* 10px 20px 30px 10px 20px 3
 ```
 
 上面代码表示 两行（`60% 40%`）一列（`200px`）。
+
+## 3.3 grid-row-gap 属性， grid-column-gap 属性， grid-gap 属性
+
+`grid-row-gap`属性设置行与行的间隔（行间距），`grid-column-gap`属性设置列与列的间隔（列间距）。
+
+```css
+grid-gap: <grid-row-gap> <grid-column-gap>;
+```
+
+如果`grid-gap`省略了第二个值，浏览器认为第二个值等于第一个值
+
+根据最新标准，三个属性名的`grid-`前缀已经删除，`grid-column-gap`和`grid-row-gap`写成`column-gap`和`row-gap`，`grid-gap`写成`gap`。
+
+## 3.4 grid-auto-flow 属性
+
+划分网格以后，容器的子元素会按照顺序，自动放置在每一个网格。默认的放置顺序是"先行后列"
+
+`grid-auto-flow`属性决定，默认值是`row`。也可以将它设成`column`，变成"先列后行"
+
+还可以设成`row dense`和`column dense` ;决定剩下的项目如何排列。
+
+## 3.5
+justify-items 属性，
+align-items 属性，
+place-items 属性
+
+`justify-items`属性设置单元格内容的水平位置（左中右），`align-items`属性设置单元格内容的垂直位置（上中下）。
+
+- start：对齐单元格的起始边缘。
+- end：对齐单元格的结束边缘。
+- center：单元格内部居中。
+- stretch：拉伸，占满单元格的整个宽度（默认值）。
+
+```css
+place-items: <align-items> <justify-items>;
+```
+
+## 3.6 justify-content 属性， align-content 属性， place-content 属性
+
+`justify-content`属性是**整个内容区域**在容器里面的水平位置（左中右），`align-content`属性是整个内容区域的垂直位置（上中下）。
+
+```css
+place-content: <align-content> <justify-content>
+```
+
+## 四、项目属性
+
+## 4.1 grid-column-start 属性， grid-column-end 属性， grid-row-start 属性， grid-row-end 属性
+
+- `grid-column-start`属性：左边框所在的垂直网格线
+- `grid-column-end`属性：右边框所在的垂直网格线
+- `grid-row-start`属性：上边框所在的水平网格线
+- `grid-row-end`属性：下边框所在的水平网格线
+
+这四个属性的值还可以使用`span`关键字，表示"跨越"，即左右边框（上下边框）之间跨越多少个网格。
+
+如果产生了项目的重叠，则使用`z-index`属性指定项目的重叠顺序
+
+## 4.2 grid-column 属性，
+grid-row 属性
+
+```css
+.item {
+  grid-column: <start-line> / <end-line>;
+  grid-row: <start-line> / <end-line>;
+}
+```
+
+这两个属性之中，也可以使用`span`关键字，表示跨越多少个网格。
+
+## 4.3 grid-area 属性
+
+```css
+.item {
+  grid-area: <row-start> / <column-start> / <row-end> / <column-end>;
+}
+```
+
+## 4.4 justify-self 属性，
+align-self 属性，
+place-self 属性
+
+`justify-self`属性设置单元格内容的水平位置（左中右），跟`justify-items`属性的用法完全一致，但只作用于单个项目。
+
+`align-self`属性设置单元格内容的垂直位置（上中下），跟`align-items`属性的用法完全一致，也是只作用于单个项目。
+
+```css
+place-self: <align-self> <justify-self>;
+```
+
