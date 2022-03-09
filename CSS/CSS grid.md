@@ -204,7 +204,7 @@ place-items: <align-items> <justify-items>;
 place-content: <align-content> <justify-content>
 ```
 
-## 四、项目属性
+# 四、项目属性
 
 ## 4.1 grid-column-start 属性， grid-column-end 属性， grid-row-start 属性， grid-row-end 属性
 
@@ -248,4 +248,67 @@ place-self 属性
 ```css
 place-self: <align-self> <justify-self>;
 ```
+
+# 总结
+
+## 项目
+
+```css
+grid-column-start: 1;  /* 网格序号 也可以 -1 */
+grid-column-end: 5;
+grid-row-start: -1;
+grid-row-end: -5;
+
+grid-column: 1 / 5; /* grid-column-start / grid-column-end */
+grid-row: -1 / -5;
+
+grid-area: -1 / 1 / -5 / 5;
+/* grid-row-start / grid-column-start / grid-row-end / grid-row-start  */
+/* 以上属性都可以 span 代表网格跨度 */
+grid-column: 1 /span 4;
+```
+
+项目可以重叠，重叠可以通过 `z-index` 修改层叠顺序
+
+项目 `order`  可以调整项目的序号，数字越大越靠后；可以负数
+
+## 容器
+
+`grid-template-columns、grid-template-rows`  划分行列
+
+```css
+grid-template-columns: 20% 20% 50px 3em;
+```
+
+取值 绝对值 `50px` 、百分比 `50%` （相对于容器宽高）、相对值 `3em` （相对于自身文本大小）
+
+可以用 `repeat(5, 20%)` 函数来简写。
+
+```css
+grid-template-columns: repeat(2, 50%);
+```
+
+### **fr 关键字**
+
+分摊空间
+
+```css
+grid-template-columns: 1fr 3fr; /* 两列 第一列占 1/4 第二列占 3/4；
+```
+
+如果设置行高时有用 `px` `%` , `em`；那么 fr 分摊剩下空间。
+
+```css
+grid-template-columns: 50px 1fr 3fr;
+/* 三列 第一列 50px， 第二列 (width - 50px) * (1/4) , 第三列 (width-50px) * (3/4)
+```
+
+### grid-template 简写
+
+```css
+grid-template: 60% 40% / 200px; /* 两行 一列 */
+/* grid-template-rows / grid-template-columns */
+```
+
+
 
