@@ -261,3 +261,25 @@ key 帮助 React 识别哪些元素改变了，比如被添加或删除
   );
 ```
 
+key 会传递信息给 React ，但不会传递给你的组件。如果组件中需要使用 `key` 属性的值，需要使用其他属性名显式传递这个值
+
+```react
+const content = posts.map((post) =>
+  <Post
+    key={post.id}    
+    id={post.id}
+    title={post.title}
+  />
+);
+```
+
+`Post` 组件可以读出 `props.id`，但是不能读出 `props.key`。
+
+# 8. 表单
+
+## 8.1 受控组件
+
+渲染表单的 React 组件还控制着用户输入过程中表单发生的操作。被 React 以这种方式控制取值的表单输入元素就叫做“受控组件”。
+
+对于受控组件来说，输入的值始终由 React 的 state 驱动
+

@@ -201,6 +201,15 @@ place-items: <align-items> <justify-items>;
 `justify-content`属性是**整个内容区域**在容器里面的水平位置（左中右），`align-content`属性是整个内容区域的垂直位置（上中下）。
 
 ```css
+.container {
+  justify-content: start | end | center | stretch | space-around | space-between | space-evenly;
+  align-content: start | end | center | stretch | space-around | space-between | space-evenly;  
+}
+```
+
+
+
+```css
 place-content: <align-content> <justify-content>
 ```
 
