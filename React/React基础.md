@@ -283,3 +283,93 @@ const content = posts.map((post) =>
 
 对于受控组件来说，输入的值始终由 React 的 state 驱动
 
+**也就是表单元素通过 value 值设置为组件的 state，就成为了受控组件 **
+
+```react
+<input type="text" value={this.state.value} onChange={this.handleChange} />
+<textarea value={this.state.value} onChange={this.handleChange} />
+<select value={this.state.value} onChange={this.handleChange}>
+            <option value="grapefruit">葡萄柚</option>
+            <option value="lime">酸橙</option>
+</select>
+/* select 支持多选，传入数组 */
+<select multiple={true} value={['B', 'C']}>
+```
+
+## 8.2 处理多个输入
+
+处理多个 `input` 元素，给每个元素添加 `name` 属性，并让处理函数根据 `event.target.name` 的值选择要执行的操作
+
+## 8.3 受控输入空值
+
+在受控组件上指定 value 属性的值会阻止用户更改输入；
+
+如果指定了 `value`，但输入仍可编辑，可能是将`value` 设置为 `undefined` 或 `null`了。
+
+```react
+ReactDOM.render(<input value="hi" />, mountNode);
+
+setTimeout(function() {
+  ReactDOM.render(<input value={null} />, mountNode);
+}, 1000);
+```
+
+# 9. 状态提升
+
+多个组件需要反映相同的变化数据，这时最好将共享状态提升到最近的共同父组件中去
+
+# 10.组合 vs 继承
+
+React 有十分强大的组合模式。推荐使用组合而非继承来实现组件间的代码重用
+
+## 10.1 包含关系
+
+组件使用一个特殊的 `children` 属性来渲染子组件
+
+```react
+function FancyBorder(props) {
+  return (
+    <div className={'FancyBorder FancyBorder-' + props.color}>
+      {props.children}    </div>
+  );
+}
+```
+
+```react
+function WelcomeDialog() {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">        Welcome      </h1>      <p className="Dialog-message">        Thank you for visiting our spacecraft!      </p>    </FancyBorder>
+  );
+}
+```
+
+## 10.2 特例关系
+
+一些组件看作是其他组件的特殊实例，通过组合
+
+```react
+function Dialog(props) {
+  return (
+    <FancyBorder color="blue">
+      <h1 className="Dialog-title">
+        {props.title}      </h1>
+      <p className="Dialog-message">
+        {props.message}      </p>
+    </FancyBorder>
+  );
+}
+
+function WelcomeDialog() {
+  return (
+    <Dialog      title="Welcome"      message="Thank you for visiting our spacecraft!" />  );
+}
+```
+
+# 11. React 哲学
+
+根据**单一功能原则**来判定组件的范围，一个组件原则上只能负责一个功能
+
+当你的应用比较简单时，使用自上而下的方式更方便；对于较为大型的项目来说，自下而上地构建，并同时为低层组件编写测试是更加简单的方式。
+
+其中的关键正是 [DRY: *Don’t Repeat Yourself*](https://en.wikipedia.org/wiki/Don't_repeat_yourself)。只保留应用所需的可变 state 的最小集合，其他数据均由它们计算产生
