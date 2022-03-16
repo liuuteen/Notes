@@ -3,7 +3,7 @@
 JavaScript 中的一些概念不同于其他语言：
 
 - 函数也是对象
-- 函数的闭包 —— 简单来讲就是函数主动维护了再函数内使用的外部的变量。
+- 函数的闭包 —— 简单来讲就是函数主动维护了在函数内使用的外部的变量。
 - 作用域 —— 全局、函数、块级作用域
 - 基于原型的面向对象
 
@@ -557,7 +557,7 @@ for(value of iterator){
 // for-of 对迭代器迭代语法糖
 ```
 
-**移交执行权给下一个Gnerator**(generator函数中调用generator函数)
+**移交执行权给下一个`Gnerator`**(generator函数中调用generator函数)
 
 ```js
 function* GeneratorA(){
@@ -605,9 +605,11 @@ Promise声明周期中有三种状态
 
 **Promise可链式调用**
 
+## 6.3 `async` 函数和 `await` 关键字 
+
 promise 和 generator 结合
 
-async 是 generator 得语法糖
+`async` 是 generator 的语法糖
 
 # 7. 面向对象与原型
 

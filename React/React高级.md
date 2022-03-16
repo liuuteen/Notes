@@ -22,52 +22,183 @@ import("./math").then(math => {
 
 # 2. Context
 
-`Context` 可以隔层级传递数据。提供方便的组件之间共享数据的方式
-
-```react
-// Context 可以让我们无须明确地传遍每一个组件，就能将值深入传递进组件树。
-// 为当前的 theme 创建一个 context（“light”为默认值）。
-const ThemeContext = React.createContext('light');
-class App extends React.Component {
-    render() {
-        // 使用一个 Provider 来将当前的 theme 传递给以下的组件树。    
-        // 无论多深，任何组件都能读取这个值。
-        // 在这个例子中，我们将 “dark” 作为当前的值传递下去。    return (
-        <ThemeContext.Provider value="dark">        
-            <Toolbar />
-        </ThemeContext.Provider>
-        );
-    }
-}
-
-// 中间的组件再也不必指明往下传递 theme 了。
-function Toolbar() {  
-    return (
-        <div>
-            <ThemedButton />
-        </div>
-    );
-}
-
-class ThemedButton extends React.Component {
-    // 指定 contextType 读取当前的 theme context。  
-    // React 会往上找到最近的 theme Provider，然后使用它的值。  
-    // 在这个例子中，当前的 theme 值为 “dark”。  
-    static contextType = ThemeContext;
-    render() {
-        return <Button theme={this.context} />;
-    }
-}
-```
+`Context` 可以**往下隔层级传递数据**，不必每一层都写一遍 props。提供方便的组件之间共享数据的方式
 
 1. *`React.createContext`：*创建一个装上下文的容器（组件），`defaultValue`可以设置需要共享的默认数据
 2. *`Context.Provider`：*提供者，用于提供共享数据的地方，`value`属性设置什么数据就共享什么数据
 3. *`Context.Consumer`：*消费者，专门消费`Provider`提供的共享数据，`Consumer`需要嵌套在`Provider`下面，才能通过回调的方式拿到共享的数据。<u>只有函数组件会用到。</u>
-4. *`Context.Consumer`：*消费者，专门消费`Provider`提供的共享数据，`Consumer`需要嵌套在`Provider`下面，才能通过回调的方式拿到共享的数据。<u>只有函数组件会用到。</u>
+4. *`Class.contextType`：*记住是用于指定`contextType`等于当前的`context`，必须指定，才能通过`this.context`来访问到共享的数据。<u>只有类组件会用到。</u>
 5. *`Context.displayName`：*context对象接收一个名为`displayName`的属性，类型为字符串。`React DevTools`使用该字符串来确定context要显示的内容(暂时还没用到)
+
+上层组件提供数据，下层组件消费/读取数据；来一个 `demo`
+
+> 此demo是通过工具栏中的按钮来切换主题色
+
+1. 首先，创建一个`theme-context.js`文件，用于**创建一个装上下文的容器**
+
+```jsx
+// theme-context.js
+import React from 'react';
+export const themes = {
+    light: {
+        foreground: '#000',
+        background: '#eee'
+    },
+    dark: {
+        foreground: '#fff',
+        background: '#222'
+    }
+}
+// Step1： 创建一个装上下文的容器
+export const ThemeContext = React.createContext(
+    themes.dark // defaultValue 默认值
+)
+```
+
+2. 在顶层组件设置需要共享的数据
+
+```jsx
+// App.js
+import React, { Component } from 'react';
+import { themes, ThemeContext } from './theme-context.js';
+import ToolBar from './component/Toolbar'
+export default class App extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            theme: themes.dark
+        }
+    }
+    
+    toggleTheme = () => {
+        this.setState(state => ({
+            theme: state.theme === themes.dark ? themes.light : themes.dark
+        }))
+    }
+    
+    render() {
+        return (
+            <div>
+                <ThemeContext.Provider value={this.state.theme}> {/* Step2: 在顶层组件设置需要共享的数据, 到时候在ToolBar里面会用到*/}
+                    <ToolBar changeTheme={this.toggleTheme}/>
+                </ThemeContext.Provider>
+            </div>
+        )
+    }
+}
+```
+
+3. 子组件使用（消费）context（类组件和函数式组件对应两种方式）
+
+```jsx
+// ToolBar.js
+import React, { Component } from 'react';
+import { ThemeContext } from './theme-context.js'
+
+1. 如果子组件是类组件,需要指定contextType等于当前的context（也是两种方式）
+export default class ToolBar extendx Component {
+    // static contextType = ThemeContext // 方式1：在class组件中声明静态属性static
+    render() {
+        let theme = this.context; 
+        return (
+            <div style={{ border: '1px solid #000', background: theme.background }}>
+                <h2 style={{ color: theme.foreground }}>ToolBar</h2>
+                <ThemeButton onClick={this.props.changeTheme}>
+                    Change Theme
+                </ThemeButton>
+            </div>
+        )
+    }
+}
+ToolBar.contextType = ThemeContext; // 方式2： 在class组件外面指定
+-------------------------------------------------------------------------------------
+2. 如果子组件是函数式组件，需要用Consumer组件来包裹，通过value拿到数据
+export default function ToolBar(props) {
+    return (
+        <ThemeContext.Consumer>
+            {theme => (
+                <div style={{ border: '1px solid #000', background: theme.background }}>
+                    <h2 style={{ color: theme.foreground }}>ToolBar</h2>
+                    <ThemeButton onClick={props.changeTheme}>
+                        Change Theme
+                    </ThemeButton>
+                </div>
+            )}
+        </ThemeContext.Consumer>
+    )
+}
+
+// ThemeButton.js中要使用共享数据也是同理，这里贴出ThemeButton.js的代码
+// ThemeButton.js
+import React, { Component } from 'react';
+import { ThemeContext } from './theme-context.js';
+
+export default function ThemeButton(props) {
+    return (
+        <ThemeContext.Consumer>
+            {theme => (
+                <button 
+                    {...props}
+                    style={{background: theme.background, color: theme.foreground}}
+                    ></button>
+            )}
+        </ThemeContext.Consumer>
+    )
+}
+```
 
 ## 谨慎使用
 
 会使得组件的复用性变差；
 
 想要**避免层层传递一些属性**，组件组合或许不错。
+
+# 3. 错误边界（Error Boundaries）
+
+React 16+ 引入的概念，部分 UI 不应该导致整个应用崩溃
+
+错误边界是一种 React 组件，**可以捕获并打印发生在其子组件树任何位置的 JavaScript 错误，并且，它会渲染出备用 UI**，错误边界在渲染期间、生命周期方法和整个组件树的构造函数中捕获错误。
+
+> 错误边界无法捕获以下场景中产生的错误：
+>
+> - 事件处理
+> - 异步代码
+> - 服务器端渲染
+
+**如何生成错误边界**
+
+给 class 组件定义 `static getDerivedStateFromError()` 或 `componentDidCatch()` 任意一个（或两个）生命周期方法，既为错误边界组件。
+
+```jsx
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {    
+      // 更新 state 使下一次渲染能够显示降级后的 UI    
+      return { hasError: true };
+  }
+  componentDidCatch(error, errorInfo) {
+      // 你同样可以将错误日志上报给服务器
+      logErrorToMyService(error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {      
+        // 你可以自定义降级后的 UI 并渲染      
+        return <h1>Something went wrong.</h1>;
+    }
+    return this.props.children; 
+  }
+}
+```
+
+```jsx
+<ErrorBoundary>
+  <MyWidget />
+</ErrorBoundary>
+```
+
+# 4. Refs 转发
+
