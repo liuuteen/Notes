@@ -226,9 +226,61 @@ let num5 = parseFloat("0908.5"); // 908.5
 let num6 = parseFloat("3.125e7"); // 支持科学计数法 31250000
 ```
 
+## String
+
+转义序列表示一个字符，只算一个字符
+
+### 转换为 string
+
+#### 1. toString()
+
+几乎所有值都有的 `toString()` 方法，返回值的字符串等价物
+
+`null` 和 `undefined` 没有该方法
+
+`toString() `操作数字时可以传入参数（进制数）
+
+#### 2. String()
+
+`String()` 转型函数规则：
+
+- 如果值有 `toString()` ，调用
+- 值为 null，返回 `"null"`
+- 值为 undefined，返回 `undefined`
+
+## 模板字符串
+
+模板字面量保留换行字符，可以跨行定义字符串
+
+定义模板很有用：
+
+```js
+let pageHTML = `
+<div>
+	<a href="#">
+		<span>Jake</span>
+	</a>
+</div>`;
+```
+
+模板字符串通过 `${}` 可以插入一个 JavaScript 表达式
+
+将表达式转换为字符串时会调用 `toString()`
+
+```js
+let foo = { toString: () => 'World' };
+console.log(`Hello, ${ foo }!`); // Hello, World!
+```
+
+
+
+
+
 ## 假值的数据类型
 
-undefined , null 是假值
+"假值"总共有6个：
+
+false，undefined，null，0，""（空字符串），NaN
 
 ```js
 let message = null;
@@ -246,6 +298,10 @@ if (!age) {
     // 这个块会执行
 }
 ```
+
+# 4. 操作符
+
+## 加性操作符
 
 
 
