@@ -301,7 +301,14 @@ if (!age) {
 
 # 4. 操作符
 
-## 加性操作符
+## typeof 和 instanceof
+
+typeof 用于检测原始值，对 `null` 或对象 返回 `"object"`
+
+instanceof 检测引用值（对象）是什么类型的对象
+`variable instanceof constructor`
+
+
 
 
 
