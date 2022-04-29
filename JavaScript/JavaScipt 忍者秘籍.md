@@ -18,13 +18,13 @@ JavaScript 还有很多特性：
 - 正则表达式
 - 模块化
 
-## 1.1 浏览器
+## 1.1 浏览器环境
 
 ![image-20210816111546901](https://gitee.com/liutinghome/image-fridge/raw/master/JavaScript-ninja/image-20210816111546901.png)
 
 - DOM
 - 事件
-- 浏览器API
+- 浏览器 API
 
 ## 1.2 最佳实践
 
@@ -41,6 +41,8 @@ JavaScript 还有很多特性：
 - 性能分析
 
   在方法前后使用计时器打印时间日志，测试性能
+  
+  内置 console 对象上有 `time()` 和 `timeEnd()` 方法
 
 # 2. 页面构建
 
@@ -54,7 +56,7 @@ JavaScript 还有很多特性：
 
 步骤：
 
-1. 页面构建 —— 创建 UI
+1. 页面构建 —— 创建 `UI`
 2. 事件处理 —— 进入循环等待事件发生，发生后调用事件处理器。
 
 应用的声明周期会在用户关掉或离开页面时结束。
@@ -105,7 +107,7 @@ JavaScript 还有很多特性：
 - 浏览器事件，例如页面加载完成或无法加载
 - 网络事件，例如来自服务器的响应（Ajax 事件和服务器端事件）
 - 用户事件，例如鼠标单击、鼠标移动和键盘事件；
-- 计时器事件，当 timeout 时间到期或又触发了一次时间间隔(setTimeout, setInterval)
+- 计时器事件，当 timeout 时间到期或又触发了一次时间间隔(`setTimeout`, `setInterval`)
 
 ### 2.3.1 注册事件处理器
 
@@ -241,6 +243,8 @@ immediately invoked function expression (IIFE), 立即调用函数表达式
 给函数表达式加括号是为了让 JavaScript 解析器能够认识这是一个表达式
 否则，以 `function` 开头会被解析器认为是函数定义，没有名字就会报错。
 
+**立即函数能够模拟 JavaScript 中的模块化（利用了闭包原理）**
+
 还可以使用一元运算符来表示 立即调用函数
 
 ```js
@@ -250,11 +254,11 @@ immediately invoked function expression (IIFE), 立即调用函数表达式
 ~function(){}();
 ```
 
-### 3.4.3 箭头函数 =>
+### 3.4.3 箭头函数  `=>`
 
 从某方面说，箭头函数是函数表达式的简化版。
 
-## 3.5 函数的实参和形参
+## 3.5 函数的实参(arguments)和形参(parameters)
 
 - 形参是定义函数时列举的变量
 - 实参是调用函数时传递给函数的值
@@ -271,13 +275,13 @@ function multiMax(first, ...remainingNumbers){
 
 ### 3.5.2 默认参数
 
-为函数形参赋值
+**为函数形参赋值**
 
 ```js
 function performAction(ninja, action = "skulking"){};
 ```
 
-**引用前一个默认参数**
+引用前一个默认参数（不推荐使用）
 
 ```js
 function performAction(ninja, action = "skulking", message = ninja + " " + action){};
@@ -295,7 +299,7 @@ function performAction(ninja, action = "skulking", message = ninja + " " + actio
 
 `arguments` 是类数组，有 length 属性，可以通过下标索引访问元素。但不能使用数组方法
 
-> 剩余参数  function sum(...restParams)，是数组，推荐使用。
+> 剩余参数  `function sum(...restParams)`，是数组，推荐使用。
 
 ```js
 function sum() {
@@ -321,37 +325,37 @@ function test(str){
 }
 ```
 
-### 4.1.2 this ： 函数上下文
+### 4.1.2 `this`参数 ： 函数上下文
 
 代表函数调用相关联的对象。
 
-函数调用方式不同 = this 值不同
+函数调用方式不同 = `this` 值不同
 
 ## 4.2 函数调用
 
 4种方式：
 
-- 作为函数直接被调用 — skulk()
-- 作为方法，关联在对象上，实现面向对象编程 — ninja.skulk()
-- 作为构造函数，实例化一个新的对象 — new Ninja()
-- 通过函数的 apply 或者 call 方法 — skulk.apply(ninja) 或 skulk.call(ninja)
+- 作为函数直接被调用 — `eat()`
+- 作为方法，关联在对象上，实现面向对象编程 — `panda.eat()`
+- 作为构造函数，实例化一个新的对象 — `new Panda()`
+- 通过函数的 apply 或者 call 方法 — `eat.apply(panda)` 或 `eat.call(panda)`
 
-### 4.2.1 作为函数被调用
+### 4.2.1 作为函数被直接调用
 
-使用 `()` 操作符调用函数，且函数表达式不是作为一个对象的属性时，称为作为函数调用。
+函数没有作为方法、构造函数或通过 apply 和 call 调用，就是作为函数被直接调用。
 
 `this` 函数上下文有两种情况：
 
 1. windows对象 ，非严格模式
 2. undefined，严格模式
 
-### 4.2.2 作为方法调用
+### 4.2.2 作为方法被调用
 
 函数被赋值给对象的属性，并且通过对象属性引用的方式调用函数。
 
 对象会成为函数的上下文（this）。
 
-### 4.2.3 作为构造函数调用
+### 4.2.3 作为构造函数被调用
 
 函数调用之前使用关键字 `new`
 
@@ -364,9 +368,8 @@ new Person();
 
 构造函数是用来创建和初始化对象实例的函数。
 
-> 函数构造器可以用来构造新的函数
+> 函数构造器可以用来构造新的函数  `new Function('a', 'b', 'return a+b');`
 >
-> new Function('a', 'b', 'return a+b');
 
 通过 `new` 调用函数触发：
 
@@ -390,7 +393,7 @@ new Person();
 
 改变函数上下文（this引用的对象），显式指定它
 
-解决事件处理函数中的 `this` 指向问题（默认指向事件触发的目标元素）。最方便的就是使用箭头函数解决
+**解决事件处理函数中的 `this` 指向问题**（默认指向事件触发的目标元素）。最方便的就是使用箭头函数解决
 
 两个方法传递参数：
 
@@ -420,6 +423,24 @@ juggle.call(ninja2, 5, 6, 7, 8)
 # 5. 闭包与作用域
 
 ## 5.1 理解闭包
+
+**闭包有什么用？**
+
+闭包允许函数访问并操作声明函数时的作用域内的变量和函数。
+
+```js
+function outterFn() {
+    const name = 'panda';
+    function eat() {
+        console.log('eat');
+    }
+    function innerFn() {
+        console.log('name');
+        eat();
+    }
+    return innerFn;
+}
+```
 
 外部函数中声明内部函数时，创建了闭包，只要该内部函数存在，它就会存在。
 
@@ -479,7 +500,11 @@ function animateIt(elementId) {
 
 **闭包是一个真实的状态封装，只要闭包存在，就可以对变量进行修改**
 
-## 5.3 执行上下文 (excution context)
+## 5.3 执行上下文 (execution context) 
+
+**Q：有什么作用？**
+
+A：跟踪代码的执行，每一句代码都处于特定的执行上下文中。
 
 有两种执行上下文：全局执行上下文和函数执行上下文
 
@@ -491,29 +516,41 @@ function animateIt(elementId) {
 
 ![image-20210825150824851](https://gitee.com/liutinghome/image-fridge/raw/master/JavaScript-ninja/image-20210825150824851.png)
 
+执行上下文通过作用域来实现标识符解析。
+
 ## 5.4 作用域（词法环境）
+
+作用域是 JavaScript 引擎内部用来跟踪标识符与特定变量之间的映射关系。
+
+词法环境与特定的 JavaScript 代码结构关联，既可以是一个函数、一段代码片段、try-catch 语句。这些代码架构可以具有独立的标识符映射表。
 
 作用域主要基于代码嵌套，（全局代码包含函数，函数包含内部函数，内部函数包含for循环）
 
 ![image-20210825160344366](https://gitee.com/liutinghome/image-fridge/raw/master/JavaScript-ninja/image-20210825160344366.png)
 
+在作用域范围内，每次执行代码时，代码结构都会获得与之关联的词法环境。
+
 每个执行上下文都有一个与之关联的作用域。
 
-**创建函数，就会创建与之相关联的上级作用域**，存储在 [[Enviroment]]的内部（意味着无法直接访问或操作）属性上。
+**创建函数，就会创建与之相关联的上级作用域**，存储在 `[[Enviroment]]` 的内部（意味着无法直接访问或操作）属性上。
 
 ![image-20210825174719828](https://gitee.com/liutinghome/image-fridge/raw/master/JavaScript-ninja/image-20210825174719828.png)
 
-外部环境与新建的词法环境，JavaScript 引擎将调用函数的内置 [[Enviroment]] 属性与创建函数时的环境进行关联。
+外部环境与新建的词法环境，JavaScript 引擎将调用函数的内置 `[[Enviroment]]` 属性与创建函数时的环境进行关联。
+
+**Q：作用域链是如何工作的？**
+
+A：当查找一个标识符时，先从当前运行的执行上下文的作用域中查找，如果没有找到，从作用域的外部环境（也就是上层作用域）去查找，找到后或者在最顶层外部环境查找后停止。
 
 ## 5.5 变量类型
 
-**const** 对 JavaScript 引擎性能优化有帮助。
+**`const`** 对 JavaScript 引擎性能优化有帮助。
 
 ### 关键字和作用域
 
 var：变量在最近的函数内部或全局作用域定义（忽略块级作用域）
 
-let 和 const 定义的变量具有块级作用域。`let` 和 `const` 在最近的作用域定义变量（块级，循环，函数，全局环境）
+`let` 和 `const` 定义的变量具有块级作用域。`let` 和 `const` 在最近的作用域定义变量（块级，循环，函数，全局环境）
 
 ![image-20210827095356881](https://gitee.com/liutinghome/image-fridge/raw/master/JavaScript-ninja/image-20210827095356881.png)
 
@@ -521,7 +558,9 @@ let 和 const 定义的变量具有块级作用域。`let` 和 `const` 在最近
 
 ### 作用域中注册标识符
 
-JavaScript 在函数定义之前就可以调用函数， 但是 why?
+为什么 JavaScript 在函数定义之前就可以调用函数？
+
+在创建新作用域时，在执行代码前，会先进行注册标识符的步骤。
 
 **注册标识符的过程**
 
@@ -533,12 +572,45 @@ JavaScript 代码的执行实际上是分两个阶段执行的：
 
 1. 如果是创建一个函数环境，那么创建隐式参数`arguments`，以及以及所有形式的函数参数及其参数值。
    如果是非函数环境，跳过此步骤。
-2. 如果我们正在创建一个全局或函数环境，当前代码将被扫描(而不是进入其他函数体)以获取函数声明(但不包含函数表达式或箭头函数!)。对于所找到的函数声明，都会创建一个函数，并绑定到当前环境与函数名相同的标识符上。如果该标识符已经存在，那么该标识符的值会被重写。如果是块级作用域，跳过此步骤。
-3. 扫描当前代码进行变量声明，在函数或全局环境中，找到所有定义在其他函数外的用`var` 关键字声明的变量。并找到所有在其他函数或代码块之外通过 `let` 或 `const` 定义的变量。在块级环境中，仅查找通过 `let` 或 `const` 定义的变量。对于所查找到的变量，若该标识符不存在，注册并将其初始化为 `undefined` 。若该标识符已经存在，将保留其值。
+2. 如果我们正在创建一个全局或函数环境，当前代码将被扫描(而不是进入其他函数体)以获取函数声明(但不包含函数表达式或箭头函数!)。对于所找到的函数声明，都会创建一个函数，并绑定到当前环境与函数名相同的标识符上。**如果该标识符已经存在，那么该标识符的值会被重写**。如果是块级作用域，跳过此步骤。
+3. 扫描当前代码进行变量声明，在函数或全局环境中，找到所有定义在其他函数外的用`var` 关键字声明的变量。并找到所有在其他函数或代码块之外通过 `let` 或 `const` 定义的变量。在块级环境中，仅查找通过 `let` 或 `const` 定义的变量。对于所查找到的变量，若该标识符不存在，注册并将其初始化为 `undefined` 。**若该标识符已经存在，将保留其值**。
 
+## 5.6 研究闭包的工作原理
 
+闭包与作用域密切相关，闭包对作用域规则产生了影响。
+
+### 5.6.1  闭包和私有变量
+
+通过闭包模拟实现私有变量的原理：
+
+![image-20220424153811968](JavaScipt 忍者秘籍.assets/image-20220424153811968.png)
+
+![image-20220424154043230](JavaScipt 忍者秘籍.assets/image-20220424154043230.png)
+
+```js
+function Ninja() {
+    var feints = 0;
+    this.getFients = function () {
+        return feints;
+    };
+    this.feint = function () {
+        feints++;
+    };
+}
+
+var ninja2 = new Ninja();
+ninja2.getFients();
+```
+
+![image-20220424161254897](JavaScipt 忍者秘籍.assets/image-20220424161254897.png)
+
+### 5.6.2 闭包和回调函数
+
+![image-20220424161837224](JavaScipt 忍者秘籍.assets/image-20220424161837224.png)
 
 # 6. Generator 和 Promise
+
+生成器可以简化循环，挂起和恢复循环的执行有利于实现更好的异步代码。
 
 ## 6.1 Generator 函数
 
@@ -552,12 +624,12 @@ JavaScript 代码的执行实际上是分两个阶段执行的：
 
 ```js
 for(value of iterator){
-    console.log(value);
+    console.log(value); // for-of 不能拿到生成器中 return 的值
 }
 // for-of 对迭代器迭代语法糖
 ```
 
-**移交执行权给下一个`Gnerator`**(generator函数中调用generator函数)
+**移交执行权给下一个`Gnerator`**(generator函数中 yield* 调用generator函数)
 
 ```js
 function* GeneratorA(){
@@ -572,21 +644,56 @@ function* GeneratorA(){
 1. 调用生成器函数时传参
 2. 调用迭代器 `next`方法时传参
 
+![image-20220425150612461](JavaScipt 忍者秘籍.assets/image-20220425150612461.png)
+
+> next 方法为等待中的 yield 表达式提供值，所以第一次调用无法传递参数。如果需要初始值，调用生成器时传参如 `NinjaGenerator("skulk")`
+
 **抛异常**
 
-内部添加`try...catch`，外部调用迭代器 `throw` 方法
+内部添加`try...catch`，外部调用迭代器的 `throw` 方法
+
+![image-20220425151100187](JavaScipt 忍者秘籍.assets/image-20220425151100187.png)
+
+### 通过执行上下文跟踪生成器函数
+
+调用生成器函数之前和之后的执行上下文的状态：
+
+![image-20220426110625149](JavaScipt 忍者秘籍.assets/image-20220426110625149.png)
+
+从调用生成器函数返回时的状态：
+
+![image-20220426110906192](JavaScipt 忍者秘籍.assets/image-20220426110906192.png)
+
+调用生成器返回的迭代器的 next 方法，会重新激活对应的执行上下文，并将其放入调用栈的栈顶，从上次离开的地方继续执行：
+
+![image-20220426111059260](JavaScipt 忍者秘籍.assets/image-20220426111059260.png)
+
+遇到 yield 表达式，生成器会进入 yield 暂停状态，但执行上下文还留有引用就不会被销毁：
+
+![image-20220426111628944](JavaScipt 忍者秘籍.assets/image-20220426111628944.png)
 
 ## 6.2 Promise
 
 内置构造函数 `Promise`
 
-`new Promise((resolve, reject) => {})`
+```js
+new Promise((resolve, reject) => {
+    // do something
+    resolve('完成')
+}).then(res => {
+    console.log(res)
+})
+```
 
-Promise 是异步的，可防止程序执行被阻塞。
+Promise 是**异步**的，可防止程序执行被阻塞。
 
-还能更好的进行错误处理，以及解决“回调地狱”问题，也能很好的执行并行任务
+另外优点：
 
-**Promise状态**
+- 更好的进行错误处理
+- 解决“回调地狱”问题
+- 更好的执行并行任务
+
+### **Promise状态**
 
 Promise声明周期中有三种状态
 
@@ -596,14 +703,46 @@ Promise声明周期中有三种状态
 
 状态变化后无法再改变。
 
-**错误异常处理**
+![image-20220426113251817](JavaScipt 忍者秘籍.assets/image-20220426113251817.png)
+
+### 拒绝 Promise
+
+1. promise 执行函数中调用传入的 reject 方法
+2. 处理 promise 过程中抛出异常
+
+显示拒绝：
+
+```js
+const promise = new Promise((resolve, reject) => {
+    reject("发生异常")
+    // 或隐式拒绝，发生异常
+    // undeclaredVariable++
+});
+
+promise.then(
+    () => console.log("成功回调"),
+    error => console.log(error);
+)
+// 链式调用
+promise
+    .then(() => console.log("成功回调"))
+	.catch(() => console.log("错误回调"));
+```
+
+
+
+### **错误异常处理**
 
 1. `then` 方法提供第二个错误回调函数参数
 2. 使用内置 `catch` 方法
 
 触发方式：未处理的异常或显式调用 `reject()` 拒绝 `promise`
 
-**Promise可链式调用**
+### **Promise可链式调用**
+
+链式调用中最后链式调用一个 catch 方法可以捕捉前面任何一个 promise 中产生的错误。
+
+
 
 ## 6.3 `async` 函数和 `await` 关键字 
 
@@ -630,6 +769,12 @@ JavaScript 通过 `new` 操作构造函数初始化新对象
 - 函数有原型对象
 - 函数原型有 constructor 属性，指向函数本身
 - 函数的原型设置为新创建的对象的原型
+
+![image-20220427101653968](JavaScipt 忍者秘籍.assets/image-20220427101653968.png)
+
+
+
+
 
 **原型属性和实例属性**
 
@@ -700,7 +845,9 @@ Object.defineProperty(object1, 'property1', {
 
 ## 7.3 instanceof 操作符
 
-检查操作符右边的函数的原型是否存在于操作符左边的对象的原型链上。
+检查操作符右边的构造函数的原型是否存在于操作符左边的对象的原型链上。
+
+如果在 new 了一个实例对象后再改变构造函数的原型，那 `instanceof` 可能会返回 false
 
 
 
@@ -771,14 +918,15 @@ class Ninja extends Person{
 
 直接访问或修改对象属性会发生什么情况？
 
-1. 错误赋值
+1. 赋值一个错误的类型
 2. 无法记录属性的变化
-3. 当属性值变更时，无法更新界面 UI
+3. 当属性值变更时，无法更新界面 `UI`
 
 通过 `getter` 和 `setter` 方法，可以解决这些问题：
 
 - 数据校验
 - 日志记录
+- 更新 `UI`
 - 计算属性值（fullName ''姓 +名')'
 
 ### 自实现
@@ -807,7 +955,7 @@ function Ninja () {
 
 JavaScript 支持两种方式定义 `getter` 和 `setter`：
 
-- 对象字面量 或 ES6 的 `class` 中定义 （无法用于私有变量）
+- 对象字面量 或 `ES6` 的 `class` 中定义 （无法用于私有变量）
 - 使用内置 `Objectt.defineProperty` 方法（可以用于私有变量，但更复杂）
 
 #### 对象字面量
@@ -840,7 +988,11 @@ ninjaCollection.ninjas[0];
 		访问属性 = 隐式调用 getter 方法
 		给属性赋值 = 隐式调用 setter 方法
 
-#### ES6 class 中定义
+![image-20220428110548947](JavaScipt 忍者秘籍.assets/image-20220428110548947.png)
+
+![image-20220428110839880](JavaScipt 忍者秘籍.assets/image-20220428110839880.png)
+
+#### `ES6 class` 中定义
 
 ```js
 class NinjaCollection {
@@ -848,7 +1000,7 @@ class NinjaCollection {
         this.ninjas = ["Yoshi", "Kuma", "Hattori"]
     }
 	get firstNinja(){
-		report("Getteing firstNinja");
+	    report("Getteing firstNinja");
         return this.ninjas[0];
 	}
     set firstNinja(value){
@@ -862,7 +1014,7 @@ class NinjaCollection {
 >
 > 提供了 getter，如果没有 setter，在非严格模式下，赋值不起作用，JavaScript 引擎会忽略。严格模式下，JavaScript 引擎会报错。
 
-#### Object.defineProperty
+#### `Object.defineProperty`
 
 实现私有变量的 getter / setter
 
@@ -1084,15 +1236,19 @@ array.sort((a, b) => a - b)
 
 **执行的机制（两数比较，小的排在大的前面）：**
 
-- a - b < 0，那么 a 会被排列到 b 之前;
+- 如果 `compareFunction(a, b)` 小于 0 ，那么 a 会被排列到 b 之前；
 
-- a - b = 0，a 和 b 的相对位置不变。备注： ECMAScript 标准并不保证这一行为，而且也不是所有浏览器都会遵守（例如 Mozilla 在 2003 年之前的版本）；
+- 如果 `compareFunction(a, b)` 等于 0 ， a 和 b 的相对位置不变
 
-- a - b > 0，那么 b 排列到 a 之前。
+- 如果 `compareFunction(a, b)` 大于 0 ， b 会被排列到 a 之前
 
-  
 
-**升序排序 return a - b； 降序排序 return b - a。**
+```js
+// 如果数组元素是数值，或 valueOf() 返回数值的对象，升序
+function compare(a, b) {
+    return a - b;
+}
+```
 
 
 
