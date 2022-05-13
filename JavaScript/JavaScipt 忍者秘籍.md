@@ -1040,7 +1040,7 @@ const ninja = new Ninja();
 
 `setter / getter ` 对每个属性都得单独设置
 
-而代理 `proxy` 则可以控制对象的全部交互（属性，方法调用....）
+而代理 `proxy` 则可以控制对象的全部交互（属性，方法调用....）（通用化的 setter/getter）
 
 ```js
 // 通过内置 Proxy 构造器创建代理
@@ -1059,6 +1059,13 @@ const representative = new Proxy(emperor, handler); // 生成代理对象
 第二个参数 handler 定义对象执行特定行为时触发的函数。详细可看 [[handler对象的方法](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy#handler_%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95)]
 
 :warning: 代理对象和目标对象都能访问属性。
+
+代理还有很多其他的内置方法用于定义各种对象的行为：http://mng.bz/ba55
+
+- 调用函数时激活 apply，使用 new 操作符时激活 construct。
+- 读取/写入属性时激活 get 与 set
+- 执行 for-in 语句时激活 enumerate
+- 设置和获取原型属性时激活 `getPrototypeOf` 与 `setPrototypeOf` 
 
 代理实际使用案例：
 

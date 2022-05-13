@@ -6,7 +6,9 @@ JavaScript 扩展语法
 const element = <h1>Hello, world!</h1>;
 ```
 
-UI 和数据双向绑定
+实现 UI 和数据双向绑定；方便的创建虚拟 `DOM`（就是一个Object类型的对象），像是 HTML 标签得书写方式，总之就是方便。
+
+是 `React.creatElment`创建虚拟DOM方式的语法糖
 
 ## 表达式
 
@@ -130,6 +132,8 @@ class Welcome extends React.Component {
 **所有 React 组件都必须像纯函数一样保护它们的 props 不被更改。**
 
 # 4. State & 生命周期
+
+> 状态（数据）驱动页面
 
 state 是私有的，并且完全受控于当前组件
 
@@ -373,3 +377,14 @@ function WelcomeDialog() {
 当你的应用比较简单时，使用自上而下的方式更方便；对于较为大型的项目来说，自下而上地构建，并同时为低层组件编写测试是更加简单的方式。
 
 其中的关键正是 [DRY: *Don’t Repeat Yourself*](https://en.wikipedia.org/wiki/Don't_repeat_yourself)。只保留应用所需的可变 state 的最小集合，其他数据均由它们计算产生
+
+
+
+
+
+# 虚拟DOM 和 Diff 算法
+
+# Hooks
+
+让 函数组件也能使用 state、props、refs
+
